@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{obj.title}}
+{% endblock title %}
+
+{% block content %}
+  <nav class="bd-subnavbar py-2 mx-2" aria-label="Secondary navigation">
+    <div class="d-flex align-items-md-center">
+      <form action="/" method="GET" id="form">
+        <a target="_self" 
+          class="btn btn-info pull-right" 
+          href="{% url 'pull-malware-sites' %}">
+          Обновить базу данных
+        </a>      
+      </form>
+  </nav>
+
+
+  <div style="height: 74vh ;width: 50vw; overflow: scroll; margin:0 auto;">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in all_sites %}
+
+        <tr>
+          <th scope="row">{{i.id}}</th>
+          <td style="width: fit-content; background-color:  {% if i.malicious == 1 %}#f1aeb5{% endif %} {% if i.malicious == 0 %}#75b798{% endif %};">{{i.url}}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}
